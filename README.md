@@ -19,6 +19,7 @@
 运行：
 
 复制 upload.sh、deercoder.sh到go web 根目录下
+
 ./upload.sh
 
 详情：
