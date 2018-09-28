@@ -19,6 +19,9 @@ echo "and now restart the programe"
 ssh root@$ip "
 > /dev/null 2>&1 << EOF
     cd $1
+    pid=$(ps aux | grep $1 | grep -v grep | awk '{print $2}')
+    kill -9 $pid
+    rm -rf $1
     tar -zxf $1.tar.gz
     ./deercoder.sh
     exit
