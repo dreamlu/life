@@ -18,6 +18,15 @@ else
     echo "no old process"
 fi
 
+#judge has $curDir.tar.gz, if has, update it
+if [ -f "$curDir.tar.gz" ];then
+    echo "there is tar -zxf $curDir.tar.gz file"
+    echo "remove the $curDir file and update it,then remove the $curDir.tar.gz"
+    rm $curDir
+    tar -zxf $curDir.tar.gz
+    rm $curDir.tar.gz
+fi
+
 #start new daemon	
 nohup ./$curDir &
 pid=$(ps aux | grep $curDir | grep -v grep | awk '{print $2}')
