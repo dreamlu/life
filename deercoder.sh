@@ -7,7 +7,7 @@ echo "current dir's or programe's name is $curDir"
 
 #execute the programe
 #delete old process
-pid=$(ps aux | grep $curDir | grep -v grep | awk '{print $2}')
+pid=$(ps aux | grep $curDir"$" | grep -v grep | awk '{print $2}')
 if [ "$pid" ]
 then
     echo "$curDir programe is running, pid is $pid"
@@ -21,15 +21,14 @@ fi
 #judge has $curDir.tar.gz, if has, update it
 if [ -f "$curDir.tar.gz" ];then
     echo "there is tar -zxf $curDir.tar.gz file"
-    echo "remove the $curDir file and update it,then remove the $curDir.tar.gz"
+    echo "remove the $curDir file and update it"
     rm $curDir
     tar -zxf $curDir.tar.gz
-    rm $curDir.tar.gz
 fi
 
 #start new daemon	
-nohup ./$curDir &
-pid=$(ps aux | grep $curDir | grep -v grep | awk '{print $2}')
+ ./$curDir &
+pid=$(ps aux | grep $curDir"$" | grep -v grep | awk '{print $2}')
 if [ "$pid" ]
 then
     echo "the programe's new pid id $pid"
