@@ -4,6 +4,7 @@
 #get programe's name the same as directory
 curDir=$(basename `pwd`)
 echo "current dir's or programe's name is $curDir"
+
 #execute the programe
 #delete old process
 pid=$(ps aux | grep $curDir"$" | grep -v grep | awk '{print $2}')
@@ -23,7 +24,7 @@ if [ -f "$curDir.tar.gz" ];then
     echo "remove the $curDir file and update it"
     rm $curDir
     tar -zxf $curDir.tar.gz
-	chmod 755 $curDir #cp windows file to linux , no x permission
+    chmod 755 $curDir #cp windows file to linux , no x permission
 fi
 
 #start new daemon	
