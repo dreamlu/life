@@ -23,7 +23,8 @@ ssh root@$ip "
     exit
 EOF"
 echo "upload and run over,remove $1.tar.gz"
-rm -rf $1.tar.gz
+rm $1.tar.gz
+rm $1
 #echo "2s later exit"
 #sleep 2
 #exit
