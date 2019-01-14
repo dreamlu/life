@@ -16,12 +16,13 @@ echo "now upload the file"
 scp $1.tar.gz root@$ip:/$uploadDir/$1
 echo "$1 upload finshed"
 echo "and now restart the programe"
-ssh root@$ip "
-> /dev/null 2>&1 << EOF
-    cd $1
-    ./deercoder.sh
-    exit
-EOF"
+ssh root@$ip 
+#"
+#> /dev/null 2>&1 << EOF
+#    cd $1
+#    ./deercoder.sh
+#    exit
+#EOF"
 echo "upload and run over,remove $1.tar.gz"
 rm $1.tar.gz
 rm $1
