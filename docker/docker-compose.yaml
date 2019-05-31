@@ -22,11 +22,6 @@ services:
     ports:
       - 3308:3306
     restart: always
-    # sql备份目录
-    volumes:
-      - /home/ubuntu/xmd/bak:/bak
-    #expose:
-    #  - 3308
 
   # 举例如下
   # staff service
