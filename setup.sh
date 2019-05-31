@@ -1,6 +1,7 @@
 #!/bin/bash
+# 目录名与数据库名保持一致
 if [ $# -lt 1 ]; then 
-    	echo "没有命令行参数,请重新执行"
+    	echo "请输入数据库名称,重新执行"
 	exit
 fi
 bakdir="/etc/crontab"
