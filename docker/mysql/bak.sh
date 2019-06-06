@@ -59,13 +59,13 @@ echo -e "备份文件目录: ${bakDir}\n"
 echo "备份类型："
 if [[ -n ${CONTAINER} ]]; then
     echo "容器备份"
-    docker exec ${CONTAINER} /usr/bin/mysqldump -u ${USER} --password=${PASSWORD} ${DATABASE} | gzip > ${bakDir}/${1}_${DATE}.sql.gz
+    docker exec ${CONTAINER} /usr/bin/mysqldump -u ${USER} --password=${PASSWORD} ${DATABASE} | gzip > ${bakDir}/${DATABASE}_${DATE}.sql.gz
 else
     echo "本机备份"
-    mysqldump -u ${USER} -p ${PASSWORD} -R ${DATABASE} | gzip > ${bakDir}/${1}_${DATE}.sql.gz
+    mysqldump -u ${USER} -p ${PASSWORD} -R ${DATABASE} | gzip > ${bakDir}/${DATABASE}_${DATE}.sql.gz
 fi
-#docker exec ${CONTAINER} /usr/bin/mysqldump -u ${USER} --password=${PASSWORD} ${DATABASE} | gzip > ${bakDir}/${1}_${DATE}.sql.gz
-if tar zcf ${bakDir}/${1}_${DATE}.tar.gz ${bakDir}/${DATABASE}_${DATE}.sql.gz; then
+#docker exec ${CONTAINER} /usr/bin/mysqldump -u ${USER} --password=${PASSWORD} ${DATABASE} | gzip > ${bakDir}/${DATABASE}_${DATE}.sql.gz
+if tar zcf ${bakDir}/${DATABASE}_${DATE}.tar.gz ${bakDir}/${DATABASE}_${DATE}.sql.gz; then
 	rm ${bakDir}/${DATABASE}_${OLD3}.tar.gz
 	rm ${bakDir}/${DATABASE}_${OLD}.sql.gz
 fi
