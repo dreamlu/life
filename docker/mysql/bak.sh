@@ -12,7 +12,7 @@ bakDir=
 USER=
 PASSWORD=
 DATABASE=
-# 容器名或id
+# 容器名或id, 不传备份本机
 CONTAINER=
 
 # 参数处理

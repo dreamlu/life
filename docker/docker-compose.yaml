@@ -6,17 +6,15 @@ services:
   # mysql 连接
   # mysql-server
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
     #command:
     #privileged: true
     container_name: w-mysql
-    #image: mysql/mysql-server:5.7
-    #image: mysql:5.7
     environment:
-      MYSQL_DATABASE: xmd
+      MYSQL_DATABASE: ykb
       MYSQL_USER: dreamlu
-      MYSQL_PASSWORD: wobangkj
-      MYSQL_ROOT_PASSWORD: wobangkj
+      MYSQL_PASSWORD: dreamlu
+      MYSQL_ROOT_PASSWORD: dreamlu
       MYSQL_ROOT_HOST: '%'
       TZ: Asia/Shanghai
     ports:
@@ -26,8 +24,10 @@ services:
   # 举例如下
   # staff service
   staff-service:
-    image: registry.cn-hangzhou.aliyuncs.com/deercoder/dreamlu:xmd-staff-service
+    image: registry.cn-hangzhou.aliyuncs.com/deercoder/dreamlu:ykb-staff-service
     ports:
       - 8767:8767
-    container_name: w-staff
+    container_name: d-staff
     restart: always
+    volumes:
+      - /var/log/ykb:/staff-service/log
