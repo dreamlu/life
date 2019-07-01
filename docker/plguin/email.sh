@@ -6,7 +6,7 @@ if ! [[ -x "$(command -v sendemail)" ]]; then
 fi
 # 参数
 account=3147460271@qq.com #发件箱
-password=yvlewpamijspdcig #发件箱密码
+password=xxx #发件箱密码(授权码)
 SMTP_server=smtp.qq.com #发件箱对应的stmp服务器
 to=3147460271@qq.com #参数(收件箱)
 subject=备份数据 #参数(主题)
