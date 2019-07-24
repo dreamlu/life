@@ -11,4 +11,7 @@ docker images|grep none|awk '{print $3 }'|xargs docker rmi
 #docker rm `docker ps -a|grep Exited|awk '{print $1}'`
 
 # ssh 登录
-ssh ubuntu@ip
+# 执行更新脚本, 取消ssh命令后面注释
+# 进入在线部署的目录, 执行更新脚本, 退出
+# [一键进行推送更新部署]
+ssh ubuntu@ip #"cd ykb/docker;./update.sh;exit"
