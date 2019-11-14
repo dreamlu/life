@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: common-service
+  name: common-service
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: common-service
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/deercoder/dreamlu:ykb-common-service
+        name: w-common
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8010
+        resources: {}
+        volumeMounts:
+        - name: common-service-static-pvc
+          mountPath: /common-service/static
+        - name: common-service-log-pvc
+          mountPath: /common-service/log
+      restartPolicy: Always
+      volumes:
+      - name: common-service-static-pvc
+        persistentVolumeClaim:
+          claimName: nfs-static-pvc
+      - name: common-service-log-pvc
+        persistentVolumeClaim:
+          claimName: nfs-log-pvc
+  selector:
+    matchLabels:
+      app: common-service

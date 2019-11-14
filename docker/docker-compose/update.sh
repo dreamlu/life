@@ -1,3 +1,3 @@
 #!/bin/bash
-./pullAll.sh
+pullAll.sh
 docker-compose up -d

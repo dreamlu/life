@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolumeClaim  #资源类型
+metadata:
+  name: nfs-static-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      name: nfs-static
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim  #资源类型
+metadata:
+  name: nfs-log-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      name: nfs-log

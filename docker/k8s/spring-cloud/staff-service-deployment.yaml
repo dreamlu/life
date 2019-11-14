@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: staff-service
+  name: staff-service
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: staff-service
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/deercoder/dreamlu:ykb-staff-service
+        name: w-staff
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8767
+        resources: {}
+        volumeMounts:
+        - mountPath: /staff-service/log
+          name: staff-service-log-pvc
+      restartPolicy: Always
+      volumes:
+      - name: staff-service-log-pvc
+        persistentVolumeClaim:
+          claimName: nfs-log-pvc
+#        hostPath:
+#          path: /var/log/ykb/staff-service
+  selector:
+    matchLabels:
+      app: staff-service

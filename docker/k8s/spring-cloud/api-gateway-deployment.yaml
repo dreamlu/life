@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-gateway
+  name: api-gateway
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/deercoder/dreamlu:ykb-api-gateway
+        name: w-api
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8009
+        resources: {}
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: api-gateway

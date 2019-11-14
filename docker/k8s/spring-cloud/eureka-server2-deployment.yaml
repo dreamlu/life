@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: eureka-server2
+  name: eureka-server2
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: eureka-server2
+    spec:
+      # 反亲和性
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: "kubernetes.io/hostname"
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - eureka-server
+      containers:
+        - image: registry.cn-hangzhou.aliyuncs.com/deercoder/dreamlu:ykb-eureka-server
+          name: w-eureka2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8761
+          resources: {}
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: eureka-server2

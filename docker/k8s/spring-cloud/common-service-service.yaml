@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: common-service
+  name: common-service
+spec:
+  ports:
+  - name: "8010"
+    port: 8010
+    targetPort: 8010
+  selector:
+    app: common-service

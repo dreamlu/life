@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: mysql
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: yhf
+        - name: MYSQL_PASSWORD
+          value: wobangkj
+        - name: MYSQL_ROOT_HOST
+          value: '%'
+        - name: MYSQL_ROOT_PASSWORD
+          value: wobangkj
+        - name: MYSQL_USER
+          value: dreamlu
+        - name: TZ
+          value: Asia/Shanghai
+        image: mysql:8.0
+        name: w-mysql
+        ports:
+        - containerPort: 3306
+        resources: {}
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: mysql
