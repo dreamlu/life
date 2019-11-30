@@ -14,4 +14,4 @@ docker images|grep none|awk '{print $3 }'|xargs docker rmi
 # 执行更新脚本, 取消ssh命令后面注释
 # 进入在线部署的目录, 执行更新脚本, 退出
 # [一键进行推送更新部署]
-ssh ubuntu@ip #"cd shell/docker/docker-compose;./update.sh;exit"
+ssh ubuntu@ip #"cd shell/docker/k8s;./update.sh;exit"
