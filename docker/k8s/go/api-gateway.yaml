@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-dep
+  labels:
+    app: api-gateway-dep
+spec:
+  replicas: 2
+  # 回滚rollout记录历史数量, 默认2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      # 最多有几个 pod 处于无法工作的状态，默认值是25%
+      maxUnavailable: 1
+      # 滚动升级时会先启动2个pod
+      maxSurge: 2
+  # 等待容器启动的时间,默认值是 0,单位是：秒,容器运行成功之后直接执行下一步
+  # 根据应用启动时间,设定相应的minReadySeconds,保证应用不中断,
+  minReadySeconds: 4
+  template:
+    metadata:
+      name: api-gateway-dep
+      labels:
+        app: api-gateway-dep
+    spec:
+      containers:
+        - args:
+            - ./main
+            - --server_name=micro-go.web.api-gateway
+            - --api_address=0.0.0.0:9000
+            - --registry_address=consul
+            - --registry=consul
+            - --api_namespace=micro-go.web
+            - api
+            - --handler=web
+          name: api-gateway-dep
+          image: registry.gitlab.com/dreamlu/micro-go/api-gateway:0.2
+          #command: ["./main"]
+          imagePullPolicy: Always
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: api-gateway-dep
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway-svc
+spec:
+  selector:
+    app: api-gateway-dep
+  ports:
+    - port: 9000
+  #type: NodePort
