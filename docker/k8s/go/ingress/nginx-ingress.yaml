@@ -6,12 +6,17 @@ metadata:
     # use the shared ingress-nginx
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/proxy-body-size: "32m"
+#    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+#  tls:
+#    - hosts:
+#        - dreamlu.me
+#      secretName: dreamlu-secret
   rules:
-    #- host: nginx-svc.me
+#    - host: dreamlu.me
     - http:
         paths:
           - path: /
             backend:
-              serviceName: api-gateway
+              serviceName: service-name
               servicePort: 9000
