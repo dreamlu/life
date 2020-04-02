@@ -8,12 +8,12 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "32m"
 #    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-#  tls:
-#    - hosts:
-#        - dreamlu.me
-#      secretName: dreamlu-secret
+  #  tls:
+  #    - hosts:
+  #        - dreamlu.me
+  #      secretName: dreamlu-secret
   rules:
-#    - host: dreamlu.me
+    #    - host: dreamlu.me
     - http:
         paths:
           - path: /
