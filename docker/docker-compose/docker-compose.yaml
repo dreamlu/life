@@ -3,15 +3,14 @@
 # github.com/dreamlu
 version: '3'
 services:
-  # mysql 连接
   # mysql-server
   mysql:
-    image: mysql:8.0
+    image: registry.cn-hangzhou.aliyuncs.com/dreamlu/mysql:8.0
     #command:
     #privileged: true
-    container_name: w-mysql
+    container_name: d-mysql
     environment:
-      MYSQL_DATABASE: ykb
+      MYSQL_DATABASE: deercoder-gin
       MYSQL_USER: dreamlu
       MYSQL_PASSWORD: dreamlu
       MYSQL_ROOT_PASSWORD: dreamlu
@@ -20,14 +19,30 @@ services:
     ports:
       - 3308:3306
     restart: always
-
-  # 举例如下
-  # staff service
-  staff-service:
-    image: registry.cn-hangzhou.aliyuncs.com/deercoder/dreamlu:ykb-staff-service
+    # sql备份目录
+    volumes:
+      - /root/demo/bak/mysql/data:/var/lib/mysql
+    networks:
+      - demo
+  # redis
+  redis:
+    image: redis:4.0
     ports:
-      - 8767:8767
-    container_name: d-staff
+      - 6378:6379
+    container_name: d-redis
+    restart: always
+  # api gateway
+  demo:
+    image: registry.cn-hangzhou.aliyuncs.com/dreamlu/common:deercoder-gin
+    ports:
+      - 9000:9000
+    container_name: d-demo
     restart: always
     volumes:
-      - /var/log/ykb:/staff-service/log
+      - /root/bak/static:/static
+    networks:
+      - demo
+
+networks:
+  demo:
+    driver: bridge
