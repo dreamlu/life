@@ -9,3 +9,14 @@ test
 ```bash
 ps aux | grep shadowsocks
 ```
+
+加速:  
+```bash
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+chmod +x bbr.sh
+./bbr.sh
+```
+test  
+```bash
+lsmod | grep bbr
+```
