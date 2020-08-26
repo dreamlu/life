@@ -4,8 +4,8 @@ vpn, 系统全局代理
 [来源](https://github.com/hwdsl2/docker-ipsec-vpn-server/blob/master/README-zh.md)  
 install  
 ```bash
-wget https://github.com/dreamlu/shell/raw/master/life/lpsec_vpn/install_centos.sh
-chmod 755 ./install_centos.sh
+wget https://github.com/dreamlu/shell/raw/master/life/lpsec_vpn/install_centos_vpn.sh
+chmod 755 ./install_centos_vpn.sh
 ./install_centos.sh
 ```
 test  
