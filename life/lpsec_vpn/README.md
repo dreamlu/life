@@ -6,7 +6,7 @@ install
 ```bash
 wget https://github.com/dreamlu/shell/raw/master/life/lpsec_vpn/install_centos_vpn.sh
 chmod 755 ./install_centos_vpn.sh
-./install_centos.sh
+./install_centos_vpn.sh
 ```
 test  
 ```bash
