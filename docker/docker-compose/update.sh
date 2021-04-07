@@ -1,3 +1,3 @@
 #!/bin/bash
-pullAll.sh
-docker-compose up -d
+./pullAll.sh
+docker-compose up --build -d

@@ -10,36 +10,38 @@ services:
     #privileged: true
     container_name: d-mysql
     environment:
-      MYSQL_DATABASE: deercoder-gin
+      MYSQL_DATABASE: demo
       MYSQL_USER: dreamlu
       MYSQL_PASSWORD: dreamlu
       MYSQL_ROOT_PASSWORD: dreamlu
       MYSQL_ROOT_HOST: '%'
       TZ: Asia/Shanghai
     ports:
-      - 3308:3306
+      - 3378:3306
     restart: always
     # sql备份目录
     volumes:
-      - /root/demo/bak/mysql/data:/var/lib/mysql
+      - /root/gt-crud/bak/mysql/data:/var/lib/mysql
     networks:
       - demo
   # redis
   redis:
-    image: redis:4.0
+    image: registry.cn-hangzhou.aliyuncs.com/dreamlu/redis:5.0
     ports:
       - 6378:6379
     container_name: d-redis
     restart: always
+    networks:
+      - demo
   # api gateway
   demo:
-    image: registry.cn-hangzhou.aliyuncs.com/dreamlu/common:deercoder-gin
+    image: registry.cn-hangzhou.aliyuncs.com/dreamlu/common:gt-crud
     ports:
       - 9000:9000
     container_name: d-demo
     restart: always
     volumes:
-      - /root/bak/static:/static
+      - /root/gt-crud/bak/static:/static
     networks:
       - demo
 
