@@ -1,0 +1,57 @@
+---
+server:
+  http_listen_port: 3100
+memberlist:
+  join_members:
+    - loki:7946
+schema_config:
+  configs:
+    - from: 2021-08-01
+      store: boltdb-shipper
+      object_store: s3
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+common:
+  path_prefix: /loki
+  replication_factor: 1
+  storage:
+    s3:
+      endpoint: minio:9000
+      insecure: true
+      bucketnames: loki-data
+      access_key_id: loki
+      secret_access_key: supersecret
+      s3forcepathstyle: true
+  ring:
+    kvstore:
+      store: memberlist
+ruler:
+  # 触发告警事件后的回调查询地址
+  # 如果用grafana的话就配置成grafana/explore
+#  external_url: http://grafana:3000/explore
+
+  # alertmanager地址
+  alertmanager_url: http://alertmanager:9093
+  enable_alertmanager_v2: true
+  # 启用loki rules API
+  enable_api: true
+  # 对rules分片，支持ruler多实例
+#  enable_sharding: true
+  # ruler服务的一致性哈希环配置，用于支持多实例和分片
+  ring:
+    kvstore:
+      store: inmemory
+  # rules临时规则文件存储路径
+  rule_path: /tmp/scratch
+  # rules规则存储
+  # 主要支持本地存储（local）和对象文件系统（azure, gcs, s3, swift）
+  storage:
+    type: local
+    local:
+      directory: /tmp/rules
+  remote_write:
+    enabled: true
+    client:
+      url: http://prometheus:9090/api/v1/write
