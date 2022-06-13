@@ -18,3 +18,23 @@ receivers:
   - name: 'dreamlu'
     email_configs:
       - to: '3147460271@qq.com'
+
+# 企业微信
+#route:
+#  group_by: ['alertname']
+#  receiver: 'wechat'
+#
+#receivers:
+#  - name: 'wechat'
+#    wechat_configs:
+#      - corp_id: 'xxx'
+#        to_party: '1'
+#        agent_id: '1000002'
+#        api_secret: 'xxxx'
+#  参数说明：
+
+#corp_id: 企业微信账号唯一 ID， 可以在我的企业中查看。
+#to_party: 需要发送的组。
+#agent_id: 第三方企业应用的 ID，可以在自己创建的第三方企业应用详情页面查看。
+#api_secret: 第三方企业应用的密钥，可以在自己创建的第三方企业应用详情页面查看。
+#  详情请参考文档。

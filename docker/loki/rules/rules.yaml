@@ -15,7 +15,8 @@ groups:
       - alert: my_test
         annotations:
           message: "my alert test."
+        # 10分钟内出现status则告警,不能太短,因为告警计算流程(normal->pending->firing)也要时间(或许可以配置)
         expr: |
-          absent_over_time({job="varlogs"} |= "status" [1m]) 
-            < 1
+          count_over_time({job="varlogs"} |= "status" [10m]) 
+            > 0
         for: 1m
