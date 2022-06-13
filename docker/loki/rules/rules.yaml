@@ -8,8 +8,6 @@ groups:
           sum(rate({app="foo", env="production"}[5m])) by (job)
             > 0.05
         for: 10m
-        labels:
-          severity: page
         annotations:
           summary: High request latency
   - name: my_test
@@ -17,7 +15,7 @@ groups:
       - alert: my_test
         annotations:
           message: "my alert test."
-        expr: '{job="varlogs"} |= "status"'
+        expr: |
+          absent_over_time({job="varlogs"} |= "status" [1m]) 
+            < 1
         for: 1m
-        labels:
-          severity: critical

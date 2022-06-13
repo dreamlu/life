@@ -51,7 +51,9 @@ ruler:
     type: local
     local:
       directory: /tmp/rules
-  remote_write:
-    enabled: true
-    client:
-      url: http://prometheus:9090/api/v1/write
+#  remote_write:
+#    enabled: true
+#    client:
+#      url: http://prometheus:9090/api/v1/write
+  wal:
+    dir: /tmp/ruler-wal

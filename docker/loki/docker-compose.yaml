@@ -14,7 +14,6 @@ services:
       - 9095
     volumes:
       - ./loki-config.yaml:/etc/loki/config.yaml
-    #      - ./rules:/tmp/rules/tenant1
     depends_on:
       - minio
     networks: &loki-dns
@@ -38,7 +37,14 @@ services:
 
   ruler:
     image: grafana/loki:2.5.0
-    command: "-config.file=/etc/loki/config.yaml -target=ruler"
+#    command: "-config.file=/etc/loki/config.yaml -target=ruler"
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /tmp/rules/tenant1 && \
+        mkdir -p /tmp/scratch/tenant1 && \
+        loki -config.file=/etc/loki/config.yaml -target=ruler
     ports:
       - 3100
       - 7946
@@ -46,7 +52,6 @@ services:
     volumes:
       - ./loki-config.yaml:/etc/loki/config.yaml
       - ./rules:/tmp/rules/tenant1
-      - ./rules/scratch:/tmp/scratch
     depends_on:
       - minio
     networks:
@@ -199,16 +204,16 @@ services:
     networks:
       - loki
   # 数据采集
-  prometheus:
-    #    image: prom/prometheus
-    build: prometheus/.
-    container_name: prometheus
-    hostname: prometheus
-    restart: always
-    #    volumes:
-    #      - /usr/local/src/config/prometheus.yml:/etc/prometheus/prometheus.yaml
-    #      - /usr/local/src/config/node_down.yml:/etc/prometheus/node_down.yml
-    ports:
-      - "9090:9090"
-    networks:
-      - loki
+#  prometheus:
+#    #    image: prom/prometheus
+#    build: prometheus/.
+#    container_name: prometheus
+#    hostname: prometheus
+#    restart: always
+#    #    volumes:
+#    #      - /usr/local/src/config/prometheus.yml:/etc/prometheus/prometheus.yaml
+#    #      - /usr/local/src/config/node_down.yml:/etc/prometheus/node_down.yml
+#    ports:
+#      - "9090:9090"
+#    networks:
+#      - loki
