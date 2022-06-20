@@ -62,6 +62,8 @@ services:
     volumes:
       - ./promtail-local-config.yaml:/etc/promtail/config.yaml:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - /appdata/server/:/var/log/app/
+#      - /appdata/server/system/menu/log/:/var/log/app/system/menu/log/
     command: -config.file=/etc/promtail/config.yaml
     depends_on:
       - gateway

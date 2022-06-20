@@ -16,16 +16,16 @@ scrape_configs:
       - host: unix:///var/run/docker.sock
         refresh_interval: 5s
     relabel_configs:
-      - source_labels: ['__meta_docker_container_name']
+      - source_labels: [ '__meta_docker_container_name' ]
         regex: '/(.*)'
         target_label: 'container'
-  - job_name: system
+  - job_name: app
     pipeline_stages:
     static_configs:
       - targets:
           - localhost
         labels:
-          job: varlogs # 在 Prometheus中，job 标签对于连接指标和日志很有用
+          job: applog # 在 Prometheus中，job 标签对于连接指标和日志很有用
           host: localhost # `host` 标签可以帮助识别日志来源
-          __path__: /var/log/*.log
+          __path__: /var/log/app/**/**/*.log
 

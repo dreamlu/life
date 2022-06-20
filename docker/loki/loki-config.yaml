@@ -4,9 +4,14 @@ server:
 memberlist:
   join_members:
     - loki:7946
+table_manager:
+  # 开启删除表策略
+  # 删除表之前保留14天
+  retention_deletes_enabled: true
+  retention_period: 336h
 schema_config:
   configs:
-    - from: 2021-08-01
+    - from: 2022-06-01
       store: boltdb-shipper
       object_store: s3
       schema: v11
@@ -30,7 +35,7 @@ common:
 ruler:
   # 触发告警事件后的回调查询地址
   # 如果用grafana的话就配置成grafana/explore
-#  external_url: http://grafana:3000/explore
+  #  external_url: http://grafana:3000/explore
 
   # alertmanager地址
   alertmanager_url: http://alertmanager:9093
@@ -38,7 +43,7 @@ ruler:
   # 启用loki rules API
   enable_api: true
   # 对rules分片，支持ruler多实例
-#  enable_sharding: true
+  #  enable_sharding: true
   # ruler服务的一致性哈希环配置，用于支持多实例和分片
   ring:
     kvstore:
@@ -51,9 +56,9 @@ ruler:
     type: local
     local:
       directory: /tmp/rules
-#  remote_write:
-#    enabled: true
-#    client:
-#      url: http://prometheus:9090/api/v1/write
+  #  remote_write:
+  #    enabled: true
+  #    client:
+  #      url: http://prometheus:9090/api/v1/write
   wal:
     dir: /tmp/ruler-wal
