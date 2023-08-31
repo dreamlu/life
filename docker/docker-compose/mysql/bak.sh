@@ -59,7 +59,7 @@ echo -e "备份文件目录: ${bakDir}\n"
 echo "备份类型："
 if [[ -n ${CONTAINER} ]]; then
     echo "容器备份"
-    docker exec ${CONTAINER} /usr/bin/mysqldump -u ${USER} --password=${PASSWORD} ${DATABASE} | gzip > ${bakDir}/${DATABASE}_${DATE}.sql.gz
+    docker exec ${CONTAINER} /usr/bin/mysqldump -u ${USER} --password=${PASSWORD} --no-tablespaces ${DATABASE} | gzip > ${bakDir}/${DATABASE}_${DATE}.sql.gz
 else
     echo "本机备份"
     mysqldump -u ${USER} -p ${PASSWORD} -R ${DATABASE} | gzip > ${bakDir}/${DATABASE}_${DATE}.sql.gz
